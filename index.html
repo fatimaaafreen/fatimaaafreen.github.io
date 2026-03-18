@@ -911,11 +911,16 @@
     }
     .proj-card.open .proj-toggle { transform: rotate(45deg); color: var(--gold); }
     .proj-body {
-      max-height: 0;
+      height: 0;
       overflow: hidden;
-      transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+      transition: height 0.5s cubic-bezier(0.4,0,0.2,1);
     }
-    .proj-card.open .proj-body { max-height: 1200px; }
+    .proj-card.open .proj-body {
+      height: auto;
+      max-height: 60vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     .proj-inner {
       padding: 0 2rem 2rem;
       border-top: 1px solid rgba(201,168,76,0.15);
@@ -1227,9 +1232,7 @@
       background: white;
       border: 1px solid rgba(201,168,76,0.2);
       padding: 1.6rem 1.8rem;
-      position: relative;
       transition: box-shadow 0.25s, transform 0.25s;
-      overflow: visible;
     }
     .studied-card:hover {
       box-shadow: 0 8px 32px rgba(26,58,42,0.09);
@@ -1266,65 +1269,19 @@
       border-left: 2px solid var(--gold-pale);
       padding-left: 0.9rem;
     }
-
-    /* Mobile: accordion style */
-    @media(max-width: 700px) {
+    @media (max-width: 700px) {
       .studied-grid {
         grid-template-columns: 1fr;
-        gap: 0.7rem;
+        gap: 1rem;
       }
       .studied-card {
-        padding: 0;
         transform: none !important;
-        overflow: hidden;
+        padding: 1.2rem 1.3rem;
       }
       .studied-card:hover {
         box-shadow: none;
-        transform: none;
+        transform: none !important;
       }
-      .studied-card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        padding: 1.1rem 1.3rem;
-        cursor: pointer;
-        gap: 0.8rem;
-      }
-      .studied-card-header-left { flex: 1; }
-      .studied-toggle {
-        font-size: 1.3rem;
-        color: var(--gold);
-        flex-shrink: 0;
-        font-family: 'Tajawal', sans-serif;
-        transition: transform 0.3s;
-        line-height: 1;
-        margin-top: 0.1rem;
-      }
-      .studied-card.s-open .studied-toggle { transform: rotate(45deg); }
-      .studied-card-body {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease;
-      }
-      .studied-card.s-open .studied-card-body { max-height: 600px; }
-      .studied-card-note {
-        padding: 0 1.3rem 1.3rem 1.3rem;
-        border-left: none;
-        border-top: 1px solid rgba(201,168,76,0.15);
-        padding-top: 1rem;
-        margin: 0;
-      }
-      .studied-card-type,
-      .studied-card-title,
-      .studied-card-author { margin-bottom: 0.2rem; }
-    }
-
-    /* Desktop: hide the toggle */
-    @media(min-width: 701px) {
-      .studied-toggle { display: none; }
-      .studied-card-header { display: contents; }
-      .studied-card-body { max-height: none !important; overflow: visible; }
-      .studied-card-note { display: block; }
     }
   </style>
 
@@ -1339,141 +1296,63 @@
 
   <div class="studied-grid">
 
-    <div class="studied-card" id="sc1">
-      <div class="studied-card-header" onclick="toggleSource('sc1')">
-        <div class="studied-card-header-left">
-          <div class="studied-card-type">Classical · Tafsir</div>
-          <div class="studied-card-title">Tafsir Ibn Kathir (Tafsir al-Quran al-Azim)</div>
-          <div class="studied-card-author">Imam Ibn Kathir al-Dimashqi (d. 1373 CE)</div>
-        </div>
-        <div class="studied-toggle">+</div>
-      </div>
-      <div class="studied-card-body">
-        <div class="studied-card-note">
-          My primary reference for Quranic content development. I rely on Ibn Kathir to verify the context (asbab al-nuzul) of ayat before using them in educational material, ensuring nothing is quoted out of its intended meaning. His narrative style also informs how I present Quranic stories to younger audiences.
-        </div>
-      </div>
+    <div class="studied-card">
+      <div class="studied-card-type">Classical · Tafsir</div>
+      <div class="studied-card-title">Tafsir Ibn Kathir (Tafsir al-Quran al-Azim)</div>
+      <div class="studied-card-author">Imam Ibn Kathir al-Dimashqi (d. 1373 CE)</div>
+      <div class="studied-card-note">My primary reference for Quranic content development. I rely on Ibn Kathir to verify the context (asbab al-nuzul) of ayat before using them in educational material, ensuring nothing is quoted out of its intended meaning. His narrative style also informs how I present Quranic stories to younger audiences.</div>
     </div>
 
-    <div class="studied-card" id="sc2">
-      <div class="studied-card-header" onclick="toggleSource('sc2')">
-        <div class="studied-card-header-left">
-          <div class="studied-card-type">Classical · Tafsir</div>
-          <div class="studied-card-title">Tafsir al-Sa'di (Taysir al-Karim al-Rahman)</div>
-          <div class="studied-card-author">Shaykh Abdur Rahman al-Sa'di (d. 1956 CE)</div>
-        </div>
-        <div class="studied-toggle">+</div>
-      </div>
-      <div class="studied-card-body">
-        <div class="studied-card-note">
-          I turn to al-Sa'di when writing for general audiences — his tafsir is concise, accessible, and rich in practical lessons. For social media content and community-facing writing, his explanations translate well into modern reflective prompts without losing scholarly grounding.
-        </div>
-      </div>
+    <div class="studied-card">
+      <div class="studied-card-type">Classical · Tafsir</div>
+      <div class="studied-card-title">Tafsir al-Sa'di (Taysir al-Karim al-Rahman)</div>
+      <div class="studied-card-author">Shaykh Abdur Rahman al-Sa'di (d. 1956 CE)</div>
+      <div class="studied-card-note">I turn to al-Sa'di when writing for general audiences — his tafsir is concise, accessible, and rich in practical lessons. For social media content and community-facing writing, his explanations translate well into modern reflective prompts without losing scholarly grounding.</div>
     </div>
 
-    <div class="studied-card" id="sc3">
-      <div class="studied-card-header" onclick="toggleSource('sc3')">
-        <div class="studied-card-header-left">
-          <div class="studied-card-type">Classical · Spirituality</div>
-          <div class="studied-card-title">Ihya 'Ulum al-Din (Revival of the Religious Sciences)</div>
-          <div class="studied-card-author">Imam Abu Hamid al-Ghazali (d. 1111 CE)</div>
-        </div>
-        <div class="studied-toggle">+</div>
-      </div>
-      <div class="studied-card-body">
-        <div class="studied-card-note">
-          Al-Ghazali's Ihya has been foundational to understanding how Islamic knowledge should transform the inner self — not just inform the mind. This shapes how I design educational content: I ask not only "what will students learn?" but "how will this change how they feel and act?" His sections on sincerity and intention directly informed my article on the etiquettes of seeking knowledge.
-        </div>
-      </div>
+    <div class="studied-card">
+      <div class="studied-card-type">Classical · Spirituality</div>
+      <div class="studied-card-title">Ihya 'Ulum al-Din (Revival of the Religious Sciences)</div>
+      <div class="studied-card-author">Imam Abu Hamid al-Ghazali (d. 1111 CE)</div>
+      <div class="studied-card-note">Al-Ghazali's Ihya has been foundational to understanding how Islamic knowledge should transform the inner self — not just inform the mind. This shapes how I design educational content: I ask not only "what will students learn?" but "how will this change how they feel and act?" His sections on sincerity and intention directly informed my article on the etiquettes of seeking knowledge.</div>
     </div>
 
-    <div class="studied-card" id="sc4">
-      <div class="studied-card-header" onclick="toggleSource('sc4')">
-        <div class="studied-card-header-left">
-          <div class="studied-card-type">Classical · Adab al-'Ilm</div>
-          <div class="studied-card-title">Tadhkirat al-Sami' wal-Mutakallim</div>
-          <div class="studied-card-author">Ibn Jama'ah al-Kinani (d. 1333 CE)</div>
-        </div>
-        <div class="studied-toggle">+</div>
-      </div>
-      <div class="studied-card-body">
-        <div class="studied-card-note">
-          This is perhaps the most detailed classical manual on the etiquettes of the student-teacher relationship. I studied it while researching my article on adab al-talab al-'ilm and found it transformative — particularly its chapters on how the student should carry themselves in the presence of a teacher. It has changed how I approach my own role as both a learner and an educator.
-        </div>
-      </div>
+    <div class="studied-card">
+      <div class="studied-card-type">Classical · Adab al-'Ilm</div>
+      <div class="studied-card-title">Tadhkirat al-Sami' wal-Mutakallim</div>
+      <div class="studied-card-author">Ibn Jama'ah al-Kinani (d. 1333 CE)</div>
+      <div class="studied-card-note">This is perhaps the most detailed classical manual on the etiquettes of the student-teacher relationship. I studied it while researching my article on adab al-talab al-'ilm — particularly its chapters on how the student should carry themselves in the presence of a teacher. It has changed how I approach my own role as both a learner and an educator.</div>
     </div>
 
-    <div class="studied-card" id="sc5">
-      <div class="studied-card-header" onclick="toggleSource('sc5')">
-        <div class="studied-card-header-left">
-          <div class="studied-card-type">Contemporary · Seerah</div>
-          <div class="studied-card-title">The Sealed Nectar (Al-Rahiq al-Makhtum)</div>
-          <div class="studied-card-author">Shaykh Safiur Rahman al-Mubarakpuri (Darussalam, 1979)</div>
-        </div>
-        <div class="studied-toggle">+</div>
-      </div>
-      <div class="studied-card-body">
-        <div class="studied-card-note">
-          My go-to reference for seerah content aimed at youth. Al-Mubarakpuri's narrative is detailed yet flowing, making it well-suited for extracting stories and lessons that resonate with younger learners. I use it as the backbone for any Prophet ﷺ-focused curriculum I develop, cross-referencing with Ibn Hisham for primary sourcing.
-        </div>
-      </div>
+    <div class="studied-card">
+      <div class="studied-card-type">Contemporary · Seerah</div>
+      <div class="studied-card-title">The Sealed Nectar (Al-Rahiq al-Makhtum)</div>
+      <div class="studied-card-author">Shaykh Safiur Rahman al-Mubarakpuri (Darussalam, 1979)</div>
+      <div class="studied-card-note">My go-to reference for seerah content aimed at youth. Al-Mubarakpuri's narrative is detailed yet flowing, making it well-suited for extracting stories and lessons that resonate with younger learners. I use it as the backbone for any Prophet ﷺ-focused curriculum I develop, cross-referencing with Ibn Hisham for primary sourcing.</div>
     </div>
 
-    <div class="studied-card" id="sc6">
-      <div class="studied-card-header" onclick="toggleSource('sc6')">
-        <div class="studied-card-header-left">
-          <div class="studied-card-type">Contemporary · Islamic Education</div>
-          <div class="studied-card-title">Being Muslim: A Practical Guide</div>
-          <div class="studied-card-author">Asad Tarsin (Sandala Inc., 2015)</div>
-        </div>
-        <div class="studied-toggle">+</div>
-      </div>
-      <div class="studied-card-body">
-        <div class="studied-card-note">
-          One of the clearest contemporary introductions to Islamic practice written for Western Muslim audiences. I draw on its structure and tone when developing beginner-level Islamic content — it demonstrates how classical fiqh rulings can be explained accessibly without sacrificing accuracy. A constant reference when designing content for new Muslims or younger students encountering formal Islamic practice for the first time.
-        </div>
-      </div>
+    <div class="studied-card">
+      <div class="studied-card-type">Contemporary · Islamic Education</div>
+      <div class="studied-card-title">Being Muslim: A Practical Guide</div>
+      <div class="studied-card-author">Asad Tarsin (Sandala Inc., 2015)</div>
+      <div class="studied-card-note">One of the clearest contemporary introductions to Islamic practice written for Western Muslim audiences. I draw on its structure and tone when developing beginner-level Islamic content — it demonstrates how classical fiqh rulings can be explained accessibly without sacrificing accuracy. A constant reference when designing content for new Muslims or younger students.</div>
     </div>
 
-    <div class="studied-card" id="sc7">
-      <div class="studied-card-header" onclick="toggleSource('sc7')">
-        <div class="studied-card-header-left">
-          <div class="studied-card-type">Contemporary · Community & Education</div>
-          <div class="studied-card-title">Agenda to Change Our Condition</div>
-          <div class="studied-card-author">Hamza Yusuf & Zaid Shakir (Zaytuna Institute, 2007)</div>
-        </div>
-        <div class="studied-toggle">+</div>
-      </div>
-      <div class="studied-card-body">
-        <div class="studied-card-note">
-          This short but powerful work frames Islamic education as an act of community renewal. It has shaped my understanding of why Islamic education in Canada matters beyond individual piety — it is about building a generation of Muslims who are grounded, contributing, and spiritually resilient. I return to it when I need to reconnect with the purpose behind the work.
-        </div>
-      </div>
+    <div class="studied-card">
+      <div class="studied-card-type">Contemporary · Community & Education</div>
+      <div class="studied-card-title">Agenda to Change Our Condition</div>
+      <div class="studied-card-author">Hamza Yusuf & Zaid Shakir (Zaytuna Institute, 2007)</div>
+      <div class="studied-card-note">This short but powerful work frames Islamic education as an act of community renewal. It has shaped my understanding of why Islamic education in Canada matters beyond individual piety — it is about building a generation of Muslims who are grounded, contributing, and spiritually resilient. I return to it when I need to reconnect with the purpose behind the work.</div>
     </div>
 
-    <div class="studied-card" id="sc8">
-      <div class="studied-card-header" onclick="toggleSource('sc8')">
-        <div class="studied-card-header-left">
-          <div class="studied-card-type">Research Tool · Hadith Sciences</div>
-          <div class="studied-card-title">Sunnah.com — Authenticated Hadith Database</div>
-          <div class="studied-card-author">Collections: Bukhari, Muslim, Abu Dawud, Tirmidhi, Nasai, Ibn Majah</div>
-        </div>
-        <div class="studied-toggle">+</div>
-      </div>
-      <div class="studied-card-body">
-        <div class="studied-card-note">
-          My primary tool for hadith research and verification. Before any hadith appears in content I produce — whether a social media post, lesson plan, or article — I verify its chain and grading through Sunnah.com, cross-referencing with Shaykh al-Albani's gradings where applicable. Ensuring the soundness of every narration is a non-negotiable part of my content process.
-        </div>
-      </div>
+    <div class="studied-card">
+      <div class="studied-card-type">Research Tool · Hadith Sciences</div>
+      <div class="studied-card-title">Sunnah.com — Authenticated Hadith Database</div>
+      <div class="studied-card-author">Collections: Bukhari, Muslim, Abu Dawud, Tirmidhi, Nasai, Ibn Majah</div>
+      <div class="studied-card-note">My primary tool for hadith research and verification. Before any hadith appears in content I produce — whether a social media post, lesson plan, or article — I verify its chain and grading through Sunnah.com, cross-referencing with Shaykh al-Albani's gradings where applicable. Ensuring the soundness of every narration is non-negotiable.</div>
     </div>
 
   </div>
-
-  <script>
-    function toggleSource(id) {
-      document.getElementById(id).classList.toggle('s-open');
-    }
-  </script>
 </section>
 
   <div style="max-width:1100px;margin:0 auto;">
@@ -1501,12 +1380,8 @@
     <span style="font-size:0.85rem;letter-spacing:0.08em;font-style:normal;font-family:'Tajawal',sans-serif;color:rgba(201,168,76,0.5);">— Quran 20:114</span>
   </p>
   <div class="contact-links">
-    <a href="mailto:aafreenfatima.05@gmail.com" class="contact-btn contact-btn-primary">Send an Email</a>
+    <a href="/cdn-cgi/l/email-protection#96f7f7f0e4f3f3f8f0f7e2fffbf7b8a6a3d6f1fbf7fffab8f5f9fb" class="contact-btn contact-btn-primary">Send an Email</a>
     <a href="https://www.linkedin.com/in/fatimaaafreen/" target="_blank" class="contact-btn contact-btn-secondary">LinkedIn Profile</a>
     <a href="#portfolio" class="contact-btn contact-btn-secondary">View Portfolio</a>
   </div>
 </section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-t

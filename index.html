@@ -595,16 +595,104 @@
       color: rgba(201,168,76,0.4);
     }
 
+    /* ── HAMBURGER MENU ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 200;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 100%;
+      height: 1.5px;
+      background: var(--gold-light);
+      transition: transform 0.3s, opacity 0.3s;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      .about-grid,
-      .skills-grid,
-      .portfolio-grid,
-      .sources-layout { grid-template-columns: 1fr; }
 
-      nav { padding: 0 4vw; }
-      .nav-links { gap: 1.4rem; }
-      footer { flex-direction: column; gap: 0.6rem; text-align: center; }
+      /* Nav */
+      nav { padding: 0 5vw; height: 58px; }
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: 58px; left: 0; right: 0;
+        background: rgba(15,36,25,0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        border-bottom: 1px solid rgba(201,168,76,0.2);
+      }
+      .nav-links.open { max-height: 400px; }
+      .nav-links li { width: 100%; text-align: center; }
+      .nav-links a {
+        display: block;
+        padding: 1rem 0;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(201,168,76,0.08);
+      }
+
+      /* Hero */
+      #hero { padding: 90px 6vw 60px; min-height: auto; }
+      .hero-ornament { width: 280px; height: 280px; }
+      .hero-bismillah { font-size: 1.3rem; }
+      .hero-bio { font-size: 1rem; }
+      .hero-cta { padding: 0.75rem 1.8rem; }
+
+      /* Sections */
+      section { padding: 64px 6vw; }
+
+      /* About */
+      .about-grid { grid-template-columns: 1fr; gap: 2.4rem; }
+
+      /* Skills */
+      .skills-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+      /* Portfolio project cards */
+      .proj-header { padding: 1.2rem 1.4rem; gap: 1rem; }
+      .proj-title { font-size: 1.2rem; }
+      .proj-inner { padding: 0 1.4rem 1.4rem; padding-top: 1.4rem; }
+      .day-samples { grid-template-columns: 1fr; }
+
+      /* Sources */
+      .studied-grid { grid-template-columns: 1fr; }
+
+      /* Contact */
+      .contact-links { flex-direction: column; align-items: center; gap: 0.8rem; }
+      .contact-btn { width: 100%; max-width: 300px; text-align: center; }
+      .contact-verse { font-size: 1.1rem; }
+
+      /* Footer */
+      footer { flex-direction: column; gap: 0.6rem; text-align: center; padding: 1.6rem 6vw; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2.2rem; }
+      .section-title { font-size: 1.8rem; }
+      .hero-subtitle { font-size: 0.75rem; letter-spacing: 0.14em; }
+      .pillar { padding: 1.1rem 1.2rem; }
+      .skill-card { padding: 1.4rem 1.2rem; }
+      .proj-header { flex-wrap: nowrap; }
+      .studied-card { padding: 1.2rem 1.3rem; }
+      nav { height: 54px; }
+      .nav-links { top: 54px; }
     }
   </style>
 </head>
@@ -613,14 +701,29 @@
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">Fatima Aafreen</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#portfolio">Work</a></li>
-    <li><a href="#sources">Sources</a></li>
-    <li><a href="#contact">Contact</a></li>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeNav()">About</a></li>
+    <li><a href="#skills" onclick="closeNav()">Skills</a></li>
+    <li><a href="#portfolio" onclick="closeNav()">Work</a></li>
+    <li><a href="#sources" onclick="closeNav()">Sources</a></li>
+    <li><a href="#contact" onclick="closeNav()">Contact</a></li>
   </ul>
 </nav>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  function closeNav() {
+    hamburger.classList.remove('open');
+    navLinks.classList.remove('open');
+  }
+</script>
 
 <!-- HERO -->
 <section id="hero">
@@ -650,16 +753,18 @@
         I am a passionate Islamic educator and content developer with a deep commitment
         to producing materials that are both academically rigorous and spiritually enriching.
         My work bridges the classical tradition of Islamic learning with the needs of Muslim
-        communities in the contemporary  context.
+        communities in the contemporary Canadian context.
       </p>
       <p>
-        Having a passion in creation of engaging Islamic content with literary references, 
-        I bring a nuanced, research-driven approach to every project I undertake — 
-        from structured lesson plansto long-form written content.
+        Having studied under qualified scholars and engaged extensively with both Arabic
+        primary sources and English secondary literature, I bring a nuanced, research-driven
+        approach to every educational project I undertake — from structured lesson plans
+        to long-form written content.
       </p>
       <p>
-        I aspire to contribute meaningfully to curriculum development, 
-        student support and the broader mission of Islamic education in our community.
+        I am currently seeking the Teaching Assistant role at ISNA Canada, where I hope
+        to contribute meaningfully to curriculum development, student support, and the
+        broader mission of Islamic education in our community.
       </p>
     </div>
     <div class="about-pillars">
@@ -1011,7 +1116,7 @@
           <div class="proj-content-title">Contemporary Application</div>
           <div class="proj-content-body">
             <p>
-              The article concludes by examining how these classical etiquettes apply to modern Islamic education in Canada — from online learning platforms to weekend schools. The challenge of the digital age is not access to knowledge, but the cultivation of the inner qualities that make knowledge transformative. Programs like those at Islamic Charitable Organizatio that combine structured Islamic education with mentorship and community are the closest contemporary equivalent to the classical halaqah model.
+              The article concludes by examining how these classical etiquettes apply to modern Islamic education in Canada — from online learning platforms to weekend schools. The challenge of the digital age is not access to knowledge, but the cultivation of the inner qualities that make knowledge transformative. Programs like those at ISNA Canada that combine structured Islamic education with mentorship and community are the closest contemporary equivalent to the classical halaqah model.
             </p>
           </div>
 

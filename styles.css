@@ -73,11 +73,11 @@ header.nav nav a:not(.nav-icon)::before { content: "--"; color: var(--line); }
 header.nav nav a:hover { color: var(--accent); }
 header.nav nav a:not(:last-child)::after { content: " "; }
 
-main.page { padding: 48px 0 60px; }
+main.page { padding: 32px 0 40px; }
 
-.hero { padding-bottom: 20px; border-bottom: 1px dashed var(--line); margin-bottom: 28px; }
+.hero { padding-bottom: 14px; border-bottom: 1px dashed var(--line); margin-bottom: 18px; }
 .hero .eyebrow {
-  color: var(--muted); font-size: 12px; margin-bottom: 12px;
+  color: var(--muted); font-size: 12px; margin-bottom: 8px;
 }
 .hero .eyebrow::before { content: "// "; color: var(--accent); }
 .hero h1 {
@@ -118,8 +118,8 @@ main.page { padding: 48px 0 60px; }
 .stat .lab { color: var(--muted); }
 .stat .num { color: var(--accent); font-weight: 700; }
 
-section { padding: 22px 0 8px; }
-section h2 { font-size: 13px; color: var(--muted); margin: 0 0 16px; font-weight: 600; }
+section { padding: 16px 0 6px; }
+section h2 { font-size: 13px; color: var(--muted); margin: 0 0 12px; font-weight: 600; }
 section h2::before { content: "## "; color: var(--accent); }
 
 .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
@@ -129,10 +129,10 @@ section h2::before { content: "## "; color: var(--accent); }
 
 /* experience — changelog / commit-log style */
 .exp-item {
-  margin-bottom: 22px; padding: 14px 16px; background: var(--panel);
+  margin-bottom: 14px; padding: 12px 14px; background: var(--panel);
   border-left: 2px solid var(--accent);
 }
-.exp-item.minor { background: transparent; border-left-color: var(--line); padding: 10px 16px; }
+.exp-item.minor { background: transparent; border-left-color: var(--line); padding: 8px 14px; }
 .exp-item .role-row { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px; }
 .exp-item h3 { margin: 0; font-size: 14.5px; font-weight: 700; }
 .exp-item .company { color: var(--muted); font-size: 13px; }
@@ -140,13 +140,13 @@ section h2::before { content: "## "; color: var(--accent); }
 .exp-item .dates::before { content: "["; }
 .exp-item .dates::after { content: "]"; }
 
-.section-note { color: var(--muted); font-size: 12px; margin: 22px 0 12px; }
+.section-note { color: var(--muted); font-size: 12px; margin: 14px 0 10px; }
 .section-note::before { content: "// "; color: var(--accent); }
 
 /* projects — repo listing style */
-.cards { display: flex; flex-direction: column; gap: 0; margin-top: 20px; border: 1px solid var(--line); }
+.cards { display: flex; flex-direction: column; gap: 0; margin-top: 10px; border: 1px solid var(--line); }
 .card {
-  padding: 16px 18px; border-bottom: 1px solid var(--line);
+  padding: 12px 14px; border-bottom: 1px solid var(--line);
   display: flex; flex-direction: column; gap: 6px;
 }
 .card:last-child { border-bottom: none; }
